@@ -5,7 +5,11 @@ def filter(lst, cond):
     >>> filter(nums, is_even)
     [2, 4, 6, 8, 10]
     """
-    return [x for x in lst if cond(x)]
+    new_lst = []
+    for k in lst:
+        if cond(k):
+            new_lst.append(k)
+    return new_lst
 
 
 def print_cond(n):
@@ -19,7 +23,11 @@ def print_cond(n):
     2
     4
     """
-    "*** YOUR CODE HERE ***"
+    def f(cond):
+       for i in range(1,n+1):
+           if (cond(i)):
+               print(i)
+    return f
 
 
 def count_cond(condition):
@@ -49,7 +57,15 @@ def count_cond(condition):
     >>> count_primes(20)   # 2, 3, 5, 7, 11, 13, 17, 19
     8
     """
-    "*** YOUR CODE HERE ***"
+    def f(n):
+        i = 1
+        count = 0
+        while i <= n:
+            if condition(n,i):
+                count += 1
+            i += 1
+        return count
+    return f
 
 
 def print_n(n):
@@ -69,12 +85,12 @@ def print_n(n):
     <function inner_print>
     """
     def inner_print(x):
-        if ________________________:
+        if n <= 0:
             print("done")
         else:
             print(x)
-        return ____________________
-    return ________________________
+        return print_n(n-1)
+    return inner_print
 
 
 # OPTIONAL QUESTION
