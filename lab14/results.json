@@ -1,0 +1,32 @@
+{
+    "tests": [
+        {
+            "score": 5,
+            "max_score": 5,
+            "name": "test_lab14.py::test_convert_link",
+            "output": "\n",
+            "visibility": "visible"
+        },
+        {
+            "score": 0,
+            "max_score": 5,
+            "name": "test_lab14.py::test_store_digits",
+            "output": "\nLink = <class 'lab14.Link'>, store_digits = <function store_digits at 0x000001E024058EA0>, monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001E024035220>\n\n    @max_score(5)\n    @with_import('lab14', 'store_digits')\n    @with_import('lab14', 'Link')\n    def test_store_digits(Link, store_digits, monkeypatch):\n        monkeypatch.setattr(Link, '__eq__', lambda self,\n                            other: link_eq(Link, self, other))\n    \n        cleaned = re.sub(\n            r'#.*?\\n|\"\"\".*?\"\"\"', '', inspect.getsource(store_digits), flags=re.DOTALL)\n        for forbidden in 'str', 'reversed':\n            if forbidden in cleaned:\n                pytest.fail(f'You may not use {forbidden} in store_digits')\n    \n        key = Link(1)\n        output = store_digits(1)\n        assert output == key\n    \n        key = Link(2, Link(3, Link(4, Link(5))))\n        output = store_digits(2345)\n>       assert output == key\nE       assert Link(2, Link(2, Link(2, Link(2)))) == Link(2, Link(3, Link(4, Link(5))))\n\ntest_lab14.py:64: AssertionError",
+            "visibility": "visible"
+        },
+        {
+            "score": 0,
+            "max_score": 5,
+            "name": "test_lab14.py::test_every_other",
+            "output": "\nLink = <class 'lab14.Link'>, every_other = <function every_other at 0x000001E024058F40>, monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001E023FC7AD0>\n\n    @max_score(5)\n    @with_import('lab14', 'every_other')\n    @with_import('lab14', 'Link')\n    def test_every_other(Link, every_other, monkeypatch):\n        monkeypatch.setattr(Link, '__eq__', lambda self,\n                            other: link_eq(Link, self, other))\n    \n        key = Link.empty\n        link = Link.empty\n        every_other(link)\n        assert link == key\n    \n        key = Link(1)\n        link = Link(1)\n        every_other(link)\n        assert link == key\n    \n        key = Link(1, Link(3))\n        link = Link(1, Link(2, Link(3, Link(4))))\n        every_other(link)\n>       assert link == key\nE       assert Link(1, Link(2, Link(3, Link(4)))) == Link(1, Link(3))\n\ntest_lab14.py:91: AssertionError",
+            "visibility": "visible"
+        },
+        {
+            "score": 0,
+            "max_score": 5,
+            "name": "test_lab14.py::test_deep_map_mut",
+            "output": "\nLink = <class 'lab14.Link'>, deep_map_mut = <function deep_map_mut at 0x000001E024058FE0>, monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001E023FC3DF0>\n\n    @max_score(5)\n    @with_import('lab14', 'deep_map_mut')\n    @with_import('lab14', 'Link')\n    def test_deep_map_mut(Link, deep_map_mut, monkeypatch):\n        monkeypatch.setattr(Link, '__eq__', lambda self,\n                            other: link_eq(Link, self, other))\n    \n        def patched_init(self, first, rest=Link.empty):\n            pytest.fail(\n                'You may not create any new Link objects, only mutate the existing ones')\n    \n        def double(x):\n            return x * 2\n    \n        key = Link.empty\n        link = Link.empty\n        with monkeypatch.context() as m:\n            m.setattr(Link, '__init__', patched_init)\n            deep_map_mut(double, link)\n        assert link == key\n    \n        key = Link(2, Link(Link(4, Link(6, Link(Link(8, Link(10))))), Link(12)))\n        link = Link(1, Link(Link(2, Link(3, Link(Link(4, Link(5))))), Link(6)))\n        with monkeypatch.context() as m:\n            m.setattr(Link, '__init__', patched_init)\n            deep_map_mut(double, link)\n>       assert link == key\nE       assert Link(1, Link(Link(2, Link(3, Link(Link(4, Link(5))))), Link(6))) == Link(2, Link(Link(4, Link(6, Link(Link(8, Link(10))))), Link(12)))\n\ntest_lab14.py:125: AssertionError",
+            "visibility": "visible"
+        }
+    ]
+}
