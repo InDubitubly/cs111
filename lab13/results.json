@@ -1,0 +1,25 @@
+{
+    "tests": [
+        {
+            "score": 7,
+            "max_score": 7,
+            "name": "test_lab13.py::test_is_prime",
+            "output": "\n",
+            "visibility": "visible"
+        },
+        {
+            "score": 7,
+            "max_score": 7,
+            "name": "test_lab13.py::test_skip_mul",
+            "output": "\n",
+            "visibility": "visible"
+        },
+        {
+            "score": 0,
+            "max_score": 6,
+            "name": "test_lab13.py::test_multiply",
+            "output": "\nmultiply = <function multiply at 0x00000156BF498900>\n\n    @max_score(6)\n    @with_import('lab13', 'multiply')\n    def test_multiply(multiply):\n        tree = ast.parse(inspect.getsource(multiply))\n        recursive_call_seen = False\n        for node in ast.walk(tree):\n            if isinstance(node, ast.Mult):\n                pytest.fail(\n                    'You may not use the * operator in the multiply function')\n            elif isinstance(node, ast.Call) and node.func.id == 'multiply':\n                recursive_call_seen = True\n        if not recursive_call_seen:\n            pytest.fail(\n                'In the multiply function, you must make a recursive call to the multiply function')\n    \n        assert multiply(0, 0) == 0\n        assert multiply(0, 3) == 0\n        assert multiply(0, 4) == 0\n        assert multiply(2, 0) == 0\n        assert multiply(5, 0) == 0\n>       assert multiply(3, 1) == 3\nE       assert 1 == 3\nE        +  where 1 = <function multiply at 0x00000156BF498900>(3, 1)\n\ntest_lab13.py:27: AssertionError",
+            "visibility": "visible"
+        }
+    ]
+}
