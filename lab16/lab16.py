@@ -20,7 +20,7 @@ def tokenize(expression):
     >>> tokenize(expr)
     ['(', '*', '(', '-', '6', '8', ')', '(', '/', '18', '3', ')', '(', '+', '10', '1', '2', ')', ')']
     """
-    
+    return expression.replace("(","( ").replace(")"," )").split()
 
 
 # OPTIONAL
